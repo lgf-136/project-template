@@ -1,0 +1,9 @@
+[submodule ".devcontainer"]
+	path = .devcontainer
+	url = git@github.com:lgf-136/.devcontainer.git
+[submodule ".vscode"]
+	path = .vscode
+	url = git@github.com:lgf-136/.vscode.git
+[submodule "packer"]
+	path = packer
+	url = git@github.com:lgf-136/packer.git
