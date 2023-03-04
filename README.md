@@ -15,6 +15,10 @@ git submodule add git@github.com:lgf-136/.devcontainer.git
 git submodule add git@github.com:lgf-136/.vscode.git
 git submodule add git@github.com:lgf-136/packer.git
 
+git remote add origin git@gitee.com:lgf1244/project-template.git
+git remote add github  git@github.com:lgf-136/project-template.git
+git push --set-upstream origin mainpa
+
 git clone git@github.com:lgf-136/project-template.git
 cd project-template
 git submodule update --init
@@ -60,6 +64,23 @@ vagrant up
 ssh -p $(vagrant port --guest 22) vagrant@127.0.0.1
 
 ```
+
+# pre-commit
+https://pre-commit.com/#top_level-exclude
+
+```bash
+
+pip install pre-commit
+pre-commit --version
+
+pre-commit install
+pre-commit run --all-files
+pre-commit run --all-files check-yaml
+
+
+
+```
+
 
 熟练使用 vagrant (17)：解决 vagrant 下载很慢的问题： [https://www.junmajinlong.com/virtual/vagrant/vagrant_speedup/](https://www.junmajinlong.com/virtual/vagrant/vagrant_speedup/)
 

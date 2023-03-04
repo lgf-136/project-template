@@ -1,0 +1,264 @@
+# exclude: '.devcontainer/devcontainer.json|.vscode/settings.json|.vscode/extensions.json'
+# exclude: '.devcontainer/devcontainer.json'
+exclude: ^(.devcontainer/|.vscode/|.vagrant/)
+# fail_fast: false
+
+
+
+repos:
+# https://pre-commit.com/hooks.html
+# =====================common=======================
+  - repo: http://gitproxy.ml/https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: check-json
+    - id: check-toml
+    - id: check-xml
+
+
+# =====================python=======================
+  - repo: http://gitproxy.ml/https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    - id: requirements-txt-fixer # eplaces double quoted strings with single quoted strings.
+    - id: double-quote-string-fixer
+    - id: debug-statements # python checks for debugger imports and py37+ `breakpoint()` calls in python source.
+    - id: fix-encoding-pragma # python adds # -*- coding: utf-8 -*- to the top of python files.
+    - id: debug-statements # python checks for debugger imports and py37+ `breakpoint()` calls in python source.
+    - id: check-builtin-literals # python requires literal syntax when initializing empty or zero python builtin types.
+
+  - repo: http://gitproxy.ml/https://github.com/MarcoGorelli/cython-lint
+    rev: v0.12.5
+    hooks:
+    -   id: cython-lint
+    -   id: double-quote-cython-strings
+
+  - repo: http://gitproxy.ml/https://github.com/asottile/reorder_python_imports
+    rev: v3.9.0
+    hooks:
+    - id: reorder-python-imports
+      exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
+      args: [--py38-plus, --add-import, 'from __future__ import annotations']
+
+  - repo: http://gitproxy.ml/https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+    - id: autopep8
+
+  - repo: http://gitproxy.ml/https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+    - id: flake8
+
+  - repo: http://gitproxy.ml/https://github.com/pre-commit/mirrors-yapf
+    rev: 'v0.32.0'  # Use the sha / tag you want to point at
+    hooks:
+    - id: yapf
+
+  - repo: http://gitproxy.ml/https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    - id: black
+
+
+# =====================web=======================
+  # - repo: http://gitproxy.ml/https://github.com/pre-commit/mirrors-eslint
+  #   rev: ''  # Use the sha / tag you want to point at
+  #   hooks:
+  #   - id: eslint
+  #     additional_dependencies:
+  #     - eslint@4.15.0
+  #     - eslint-config-google@0.7.1
+  #     - eslint-loader@1.6.1
+  #     - eslint-plugin-react@6.10.3
+  #     - babel-eslint@6.1.2
+  #     files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
+  #     types: [file]
+
+  # - repo: http://gitproxy.ml/https://github.com/pre-commit/mirrors-jshint
+  #   rev: ''  # Use the sha / tag you want to point at
+  #   hooks:
+  #   - id: jshint
+
+  # - repo: http://gitproxy.ml/https://github.com/pre-commit/mirrors-scss-lint
+  #   rev: 'v0.59.0'  # Use the sha / tag you want to point at
+  #   hooks:
+  #   - id: scss-lint
+
+
+# =====================c/c++/c#/object-c=======================
+  # - repo: http://gitproxy.ml/https://github.com/pocc/pre-commit-hooks
+  #   rev: master
+  #   hooks:
+  #     - id: clang-format
+  #       args: [--style=Google]
+  #     - id: clang-tidy
+  #     - id: oclint
+  #     - id: uncrustify
+  #     - id: cppcheck
+  #     - id: cpplint
+  #     - id: include-what-you-use
+
+
+# =====================makefile=======================
+  # - repo: http://gitproxy.ml/https://github.com/mrtazz/checkmake.git
+  #   rev: 0.2.2
+  #   hooks:
+  #   - id: checkmake
+
+
+# =====================cmake=======================
+  # - repo: http://gitproxy.ml/https://github.com/cheshirekow/cmake-format-precommit
+  #   rev: v0.6.10
+  #   hooks:
+  #   - id: cmake-format
+  #   - id: cmake-lint
+
+# =====================dart=======================
+  # - repo: http://gitproxy.ml/https://github.com/fluttercommunity/import_sorter
+  #   rev: 'master'
+  #   hooks:
+  #     - id: dart-import-sorter # use `flutter-import-sorter` for a Flutter project
+
+
+# =====================dockerfile=======================
+  # - repo: http://gitproxy.ml/https://github.com/AleksaC/hadolint-py
+  #   rev: v2.12.0
+  #   hooks:
+  #     - id: hadolint
+  #       args: [--ignore, DL3025, --ignore, DL3018]
+
+
+# =====================shell=======================
+  # - repo: http://gitproxy.ml/https://github.com/hugoh/pre-commit-fish.git
+  #   rev: v1.2
+  #   hooks:
+  #     - id: fish_syntax
+  #     - id: fish_indent
+
+  # - repo: http://gitproxy.ml/https://github.com/detailyang/pre-commit-shell
+  #   rev: v1.0.6
+  #   hooks:
+  #   - id: shell-lint
+  #     args: [--format=json]
+
+# =====================golang=======================
+  # - repo: http://gitproxy.ml/https://github.com/dnephin/pre-commit-golang
+  #   rev: master
+  #   hooks:
+  #     - id: go-fmt
+  #     - id: go-vet
+  #     - id: go-lint
+  #     - id: go-imports
+  #     - id: go-cyclo
+  #       args: [-over=15]
+  #     - id: validate-toml
+  #     - id: no-go-testing
+  #     - id: golangci-lint
+  #     - id: go-critic
+  #     - id: go-unit-tests
+  #     - id: go-build
+  #     - id: go-mod-tidy
+
+
+# =====================java=======================
+  # - repo: http://gitproxy.ml/https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  #   rev: ${LATEST_SHA_OR_VERSION}
+  #   hooks:
+  #   - id: pretty-format-java
+  #     args: [--autofix]
+  #   - id: pretty-format-kotlin
+  #     args: [--autofix]
+  #   - id: pretty-format-yaml
+  #     args: [--autofix, --indent, '2']
+
+
+# =====================lua=======================
+  # - repo: http://gitproxy.ml/https://github.com/JohnnyMorganz/StyLua
+  #   rev: v0.16.1
+  #   hooks:
+  #     - id: stylua # or stylua-system / stylua-github
+
+
+# =====================csv=======================
+  # - repo: http://gitproxy.ml/https://github.com/alan-turing-institute/CleverCSV-pre-commit
+  #   rev: v0.6.6      # or any later version
+  #   hooks:
+  #     - id: clevercsv-standardize
+
+
+# =====================markdown=======================
+  # - repo: http://gitproxy.ml/https://github.com/igorshubovych/markdownlint-cli
+  #   rev: v0.33.0
+  #   hooks:
+  #   - id: markdownlint
+
+
+# =====================perl=======================
+  # - repo: http://gitproxy.ml/https://github.com/henryykt/pre-commit-perl
+  #   rev: v0.0.5
+  #   hooks:
+  #     - id: perlcritic
+  #     - id: perltidy
+  #     - id: perlimports
+
+
+# =====================ruby=======================
+  # - repo: http://gitproxy.ml/https://github.com/mattlqx/pre-commit-ruby
+  #   rev: v1.3.5
+  #   hooks:
+  #   - id: rubocop
+  #   - id: foodcritic
+  #   - id: cookstyle
+  #   - id: rspec
+  #   - id: chef-cookbook-version
+
+
+# =====================rust=======================
+  # - repo: http://gitproxy.ml/https://github.com/doublify/pre-commit-rust
+  #   rev: master
+  #   hooks:
+  #   - id: fmt
+  #     args: ['--verbose', '--edition', '2018', '--']
+  #   - id: cargo-check
+
+
+# =====================swift=======================
+  # - repo: http://gitproxy.ml/https://github.com/realm/SwiftLint
+  #   rev: 0.50.3
+  #   hooks:
+  #   - id: swiftlint
+  #     entry: swiftlint --fix --strict
+
+
+# =====================tex=======================
+  # - repo: http://gitproxy.ml/https://github.com/cmhughes/latexindent.pl.git
+  #   rev: V3.20.3
+  #   hooks:
+  #     - id: latexindent
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
+
+
+# =====================python=======================
